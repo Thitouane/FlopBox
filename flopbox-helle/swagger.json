@@ -1,0 +1,189 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "SR2 : projet flopbox",
+    "version": "1.0.0",
+    "title": "Flopbox",
+    "contact": {
+      "email": "thitouane.helle.etu@univ-lille.fr"
+    }
+  },
+  "schemes": [
+    "http"
+  ],
+  "host": "localhost:8080",
+  "basePath": "/",
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/server": {
+      "post": {
+        "operationId": "postAlias",
+        "parameters": [
+          {
+            "name": "alias",
+            "in": "body",
+            "description": "ajouter serveur",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Alias"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ok"
+          },
+          "405": {
+            "description": "Serveur introuvable"
+          }
+        }
+      },
+      "put": {
+        "operationId": "putAlias",
+        "parameters": [
+          {
+            "name": "alias",
+            "in": "body",
+            "description": "modifier serveur",
+            "schema": {
+              "$ref": "#/definitions/Alias"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ok"
+          },
+          "500": {
+            "description": "erreur"
+          }
+        }
+      },
+      "delete": {
+        "operationId": "deleteAlias",
+        "responses": {
+          "204": {
+            "description": "ok - alias supprime"
+          },
+          "404": {
+            "description": "alias introuvable"
+          }
+        }
+      }
+    },
+    "/server/{alias}/{(.*)}": {
+      "parameters": [
+        {
+          "name": "alias",
+          "in": "path",
+          "description": "TODO",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "(.*)",
+          "in": "path",
+          "description": "TODO",
+          "type": "string",
+          "required": true
+        }
+      ],
+      "delete": {
+        "operationId": "deleteDocument",
+        "responses": {
+          "204": {
+            "description": "ok - document supprime"
+          },
+          "404": {
+            "description": "document introuvable"
+          }
+        }
+      },
+      "put": {
+        "operationId": "putDocument",
+        "parameters": [
+          {
+            "name": ".*",
+            "in": "body",
+            "description": "modifier document",
+            "schema": {
+              "$ref": "#/definitions/Document"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ok - document modifier"
+          },
+          "404": {
+            "description": "document introuvable"
+          },
+          "500": {
+            "description": "erreur"
+          }
+        }
+      },
+      "get": {
+        "operationId": "getDocument",
+        "responses": {
+          "200": {
+            "description": "ok - informations recuperees"
+          },
+          "404": {
+            "description": "document introuvable"
+          },
+          "500": {
+            "description": "erreur"
+          }
+        }
+      },
+      "post": {
+        "operationId": "postDocument",
+        "parameters": [
+          {
+            "name": ".*",
+            "in": "body",
+            "description": "ajouter document",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Document"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ok"
+          },
+          "405": {
+            "description": "Serveur introuvable"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Alias": {
+      "type": "object",
+      "properties": {
+        "text:": {
+          "type": "string",
+          "description": "un serveur"
+        }
+      }
+    },
+    "Document": {
+      "type": "object",
+      "properties": {
+        "text:": {
+          "type": "string",
+          "description": "un document peut etre un fichier ou un dossier"
+        }
+      }
+    }
+  }
+}
